@@ -49,21 +49,7 @@ public class EffectLeap extends AbstractEffect {
         entity.hurtMarked = true;
     }
 
-    @Override
-    public void onResolveBlock(BlockHitResult rayTraceResult, Level world, @NotNull LivingEntity shooter, SpellStats spellStats, SpellContext spellContext, SpellResolver resolver) {
-        List<BlockPos> posList = SpellUtil.calcAOEBlocks(shooter, rayTraceResult.getBlockPos(), rayTraceResult, spellStats);
-        for (BlockPos pos1 : posList) {
-            EnchantedFallingBlock entity = EnchantedFallingBlock.fall(world, pos1, shooter, spellContext, resolver, spellStats);
-            if (entity != null) {
-                Vec3 vector = shooter.getLookAngle();
-                double bonus = GENERIC_DOUBLE.get() + AMP_VALUE.get() * spellStats.getAmpMultiplier();
-                entity.setDeltaMovement(vector.x * bonus, vector.y * bonus, vector.z * bonus);
-                entity.hurtMarked = true;
-                entity.fallDistance = 0.0f;
-                ShapersFocus.tryPropagateEntitySpell(entity, world, shooter, spellContext, resolver);
-            }
-        }
-    }
+   
 
     ForgeConfigSpec.BooleanValue NERF;
 
